@@ -10,11 +10,11 @@ router.get("/signup", (req, res) => { // Define a POST route for "/signup".
     res.send("signup route"); // Send a simple text response: "signup route".
 });
 */
-router.get("/signup", signup)
+router.post("/signup", signup)
 
-router.get("/login", login);
+router.post("/login", login);
 
-router.get("/logout", logout);
+router.post("/logout", logout);
 
 export default router; // Export the router instance so it can be imported into other files.
 

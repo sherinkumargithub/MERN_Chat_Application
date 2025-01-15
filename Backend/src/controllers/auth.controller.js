@@ -7,6 +7,8 @@ import User from "../models/user.model.js";
 // This is used to securely hash the user's password before storing it in the database.
 import bcrypt from "bcryptjs";
 
+//importing the token file
+import { generateToken } from "../lib/utils.js";
 // Exporting the signup function to handle user registration.
 // This function is designed as an asynchronous middleware for an Express.js route.
 export const signup = async (req, res) => {
@@ -14,6 +16,11 @@ export const signup = async (req, res) => {
     const { fullName, email, password } = req.body;
 
     try {
+        //to get all fields from the user
+        if( !fullName, !email, !password ){
+            return res.status(400).json({message: "All the fields are required"})
+        }
+
         // Check if the password is at least 6 characters long.
         if (password.length < 6) {
             // Respond with a 400 status code and an error message if the password is too short.
@@ -43,15 +50,29 @@ export const signup = async (req, res) => {
         if (newUser) {
             // Placeholder for generating a JSON Web Token (JWT) for authentication.
             // Add logic here to create and return a JWT to the client if required.
+            generateToken(newUser._id)
+            await newUser.save()
+
+            //scucess message for the signup of newuser
+            res.status(201).json({
+                _id: newUser._id,
+                fullName: newUser.fullName,
+                email: newUser.email,
+                profilePic: newUser.profilePic
+            })
         } else {
             // Respond with a 400 status code and an error message if the user creation fails.
             res.status(400).json({ message: "Invalid user data" });
+
+            
         }
 
     } catch (error) {
         // Catch any errors that occur during the signup process and respond with a 500 status code.
         // Send the error message as a response for debugging or logging purposes.
-        res.status(500).json({ message: "Server error", error: error.message });
+        // res.status(500).json({ message: "Server error", error: error.message });
+        console.log("Error in the signup controller", error.message)
+        res.status(500).json({message: "Internal server error"})
     }
 };
 

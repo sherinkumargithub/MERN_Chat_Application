@@ -1,13 +1,14 @@
 // const express = require("express")
 import express from "express";
-import dotenv from "dotenv"
-import {connectDB} from "./lib/db.js"
 // 2 - whenever we do login, log out this file will me called
 import authRoutes from "./routes/auth.route.js"
+import dotenv from "dotenv"
+import {connectDB} from "./lib/db.js"
 
-dotenv.config()
+
+
 const app = express()
-
+dotenv.config()
 // the port env by importing dotenv
 const PORT = process.env.PORT
 
