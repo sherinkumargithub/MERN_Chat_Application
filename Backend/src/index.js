@@ -4,8 +4,7 @@ import express from "express";
 import authRoutes from "./routes/auth.route.js"
 import dotenv from "dotenv"
 import {connectDB} from "./lib/db.js"
-
-
+import cookieParser from "cookie-parser"
 
 const app = express()
 dotenv.config()
@@ -14,6 +13,8 @@ const PORT = process.env.PORT
 
 // for the user to provide data and we can able to modify it later using this middleware function
 app.use(express.json())
+//to parse the cookie
+app.use(cookieParser())
 
 // 1 - defining routes for the authentication -  here this below line act as a bridge between other routes to this index.js file
 app.use("/api/auth", authRoutes)

@@ -2,7 +2,7 @@
 // to gennerated token first we need a environmental variable which env
 import jwt from "jsonwebtoken"
 
-export const generateToken = (userId) => {
+export const generateToken = (userId, res) => {
 
     // token generation
     const token = jwt.sign({userId}, process.env.JWT_SECRET, {expiresIn: "7d"});
