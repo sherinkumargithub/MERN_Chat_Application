@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.route.js"
 import dotenv from "dotenv"
 import {connectDB} from "./lib/db.js"
 import cookieParser from "cookie-parser"
+import messageRoutes from "./routes/message.route.js"
 
 const app = express()
 dotenv.config()
@@ -18,6 +19,8 @@ app.use(cookieParser())
 
 // 1 - defining routes for the authentication -  here this below line act as a bridge between other routes to this index.js file
 app.use("/api/auth", authRoutes)
+//this is for the message route
+app.use("api/message", messageRoutes)
 
 app.listen(PORT, () => {
     console.log("Server is running on PORT:" + PORT)
